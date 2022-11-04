@@ -10,9 +10,9 @@
     </parent>
 
     <groupId>com.yhlo</groupId>
-    <artifactId>yhlo_order</artifactId>
+    <artifactId>yhlo_oa</artifactId>
     <version>0.0.1</version>
-    <name>yhlo_order</name>
+    <name>yhlo_oa</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>
