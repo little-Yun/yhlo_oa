@@ -297,9 +297,12 @@
             <version>8.0.7</version>
         </dependency>
 
-
-
-
+        <!-- logstash -->
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>5.1</version>
+        </dependency>
     </dependencies>
 
     <build>
