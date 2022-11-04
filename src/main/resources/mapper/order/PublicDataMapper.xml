@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yhlo.oa.mapper.PublicDataMapper">
+
+    <!--获取客户一般数据2-->
+    <select id="queryCustomerList" resultType="com.yhlo.oa.entity.It_Kna1VO" parameterType="java.lang.String">
+        SELECT id as id,
+        kunnr as kunnr,land1 as land1,name1 as name1,name2 as name2,ort01 as ort01,
+        pstlz as pstlz,regio as regio,stras as stras,telf1 as telf1,telfx as telfx,
+        adrnr as adrnr,erdat as erdat,ernam as ernam,ktokd as ktokd,spras as spras,
+        telf2 as telf2,stcd5 as stcd5,kukla as kukla,
+        create_time as create_time
+        FROM it_kna1 where 1=1 and kunnr not like 'E%'
+
+        <if test="kunnr != null and kunnr != '' ">
+            AND kunnr = #{kunnr}
+        </if>
+
+    </select>
+
+    <!--获取 客户一般数据2中业务员 数据-->
+    <select id="querySalesmanList" resultType="com.yhlo.oa.entity.It_Kna1VO"  parameterType="java.lang.String">
+        SELECT id as id,
+               kunnr as kunnr,land1 as land1,name1 as name1,name2 as name2,ort01 as ort01,
+               pstlz as pstlz,regio as regio,stras as stras,telf1 as telf1,telfx as telfx,
+               adrnr as adrnr,erdat as erdat,ernam as ernam,ktokd as ktokd,spras as spras,
+               telf2 as telf2,stcd5 as stcd5,kukla as kukla,
+               create_time as create_time,
+               CONCAT_WS("|",name1,name2) as salesman
+        FROM it_kna1 where 1=1 and kunnr like 'E%'
+
+        <if test="kunnr != null and kunnr != '' ">
+            AND kunnr = #{kunnr}
+        </if>
+
+    </select>
+
+
+    <!--获取销售组织-->
+    <select id="querySaleOrgList" resultType="com.yhlo.oa.entity.TvkotVO" parameterType="java.lang.String">
+        SELECT id as id,
+               spras as spras,vkorg as vkorg,vtxtk as vtxtk
+        FROM TVKOT where 1=1
+
+        <if test="vkorg != null and vkorg != '' ">
+            AND vkorg = #{vkorg}
+        </if>
+    </select>
+
+
+    <!--获取物料组-->
+    <select id="queryMaterialGroupList" resultType="com.yhlo.oa.entity.T023tVO" >
+        SELECT id as id,
+               spras as spras,matkl as matkl,wgbez60 as wgbez60
+        FROM T023T where 1=1
+
+    </select>
+
+    <!--获取产品组-->
+    <select id="queryProductGroupList" resultType="com.yhlo.oa.entity.TspatVO" parameterType="java.lang.String">
+        SELECT id as id,
+               spras as spras,spart as spart,vtxtk as vtxtk
+        FROM tspat where 1=1
+
+        <if test="spart != null and spart != '' ">
+            AND spart = #{spart}
+        </if>
+
+    </select>
+
+    <!--获取销售办公室（销售部门）-->
+    <select id="querySalesDeptList" resultType="com.yhlo.oa.entity.TvkbtVO" parameterType="java.lang.String">
+        SELECT id as id,
+               spras as spras,vkbur as vkbur,bezei as bezei
+        FROM tvkbt where 1=1
+
+        <if test="vkbur != null and vkbur != '' ">
+            AND vkbur = #{vkbur}
+        </if>
+
+    </select>
+
+    <!--获取销售小组-->
+    <select id="querySalesGroupList" resultType="com.yhlo.oa.entity.TvgrtVO" parameterType="java.lang.String">
+        SELECT id as id,
+               spras as spras,vkgrp as vkgrp,bezei as bezei
+        FROM tvgrt where 1=1
+
+        <if test="vkgrp != null and vkgrp != '' ">
+            AND vkgrp = #{vkgrp}
+        </if>
+    </select>
+
+    <!--获取 客户主数据销售视图 数据-->
+    <select id="queryCustomerSalesViewList" resultType="com.yhlo.oa.entity.It_KnvvVO" parameterType="java.lang.String">
+        SELECT id as id,
+               kunnr as kunnr,vkorg as vkorg,vtweg as vtweg,spart as spart,ernam as ernam,
+               erdat as erdat,begru as begru,loevm as loevm,versg as versg,aufsd as aufsd,
+               kalks as kalks,kdgrp as kdgrp,bzirk as bzirk,konda as konda,pltyp as pltyp,
+               inco1 as inco1,inco2 as inco2,lifsd as lifsd,kzazu as kzazu,vsbed as vsbed,
+               faksd as faksd,waers as waers,klabc as klabc,ktgrd as ktgrd,zterm as zterm,
+               vwerk as vwerk,vkgrp as vkgrp,vkbur as vkbur,prfre as prfre,kkber as kkber,
+               podkz as podkz,create_time as create_time
+        FROM it_knvv where 1=1 and kunnr not like 'E%'
+
+        <if test="vkorg != null and vkorg != '' ">
+            AND vkorg = #{vkorg}
+        </if>
+
+    </select>
+
+    <!--获取订单原因-->
+    <select id="queryOrderReasonList" resultType="com.yhlo.oa.entity.TvautVO" parameterType="java.lang.String">
+        SELECT id as id,
+               spras as spras,augru as augru,bezei as bezei
+        FROM tvaut where 1=1
+
+        <if test="augru != null and augru != '' ">
+            AND augru = #{augru}
+        </if>
+    </select>
+
+    <!--获取装运点-->
+    <select id="queryShippingPointList" resultType="com.yhlo.oa.entity.TvsttVO" parameterType="java.lang.String">
+        SELECT id as id,
+               spras as spras,vstel as vstel,vtext as vtext
+        FROM tvstt where 1=1
+
+        <if test="vstel != null and vstel != '' ">
+            AND vstel = #{vstel}
+        </if>
+    </select>
+
+    <!--获取装运条件-->
+    <select id="queryshippingConditionsList" resultType="com.yhlo.oa.entity.TvsbtVO" parameterType="java.lang.String">
+        SELECT id as id,
+               spras as spras,vsbed as vsbed,vtext as vtext
+        FROM tvsbt where 1=1 and spras = 1
+
+        <if test="vsbed != null and vsbed != '' ">
+            AND vsbed = #{vsbed}
+        </if>
+    </select>
+
+    <!--通过客户+销售组织自动获取付款条件-->
+    <select id="getTermOfPayment" resultType="com.yhlo.oa.entity.TvzbtVO" parameterType="java.lang.String">
+        SELECT tz.id as id,tz.spras as spras,tz.zterm as zterm,tz.vtext as vtext
+            from tvko tk
+                     inner join it_knb1 k1 on tk.bukrs = k1.bukrs
+                     inner join tvzbt tz on tz.zterm = k1.zterm
+        where kunnr= #{kunnr} and tk.vkorg = #{vkorg}
+    </select>
+
+    <!--获取付款条件下拉-->
+    <select id="queryTermOfPaymentList" resultType="com.yhlo.oa.entity.TvzbtVO" >
+        SELECT id as id,
+               spras as spras,zterm as zterm,vtext as vtext
+        FROM tvzbt where 1=1
+
+    </select>
+
+
+    <!--获取物料主数据-->
+    <select id="queryMaterialList" resultType="com.yhlo.oa.entity.It_MaraVO" parameterType="java.lang.String">
+        SELECT id as id,
+               matnr as matnr,maktx as maktx,mtart as mtart,matkl as matkl,raube as raube,
+               bismt as bismt,spart as spart,prdha as prdha,meins as meins,mstae as mstae,
+               xchpf as xchpf,extwg as extwg,mbrsh as mbrsh,mhdrz as mhdrz,mhdhb as mhdhb,
+               mtpos_mara as mtpos_mara,zggxh as zggxh,zcus01 as zcus01,zcus02 as zcus02,zcus02_1 as zcus02_1,
+               zcus02_2 as zcus02_2,zcus03 as zcus03,zcus04 as zcus04,zcus05 as zcus05,zcus06 as zcus06,
+               zcus07 as zcus07,zcus08 as zcus08,zcus09 as zcus09,zcus10 as zcus10,zcus11 as zcus11,
+               zcus12 as zcus12,zcus13 as zcus13,zcus14 as zcus14,zcus15 as zcus15,zcus16 as zcus16,
+               zcus17 as zcus17,zcus18 as zcus18,zcus19 as zcus19,zcus20 as zcus20,zcus21 as zcus21,
+               zcus22 as zcus22,zcus23 as zcus23,zcus24 as zcus24,zcus25 as zcus25,zcus26 as zcus26,
+               zcus27 as zcus27,zcus28 as zcus28,zcus29 as zcus29,zcus30 as zcus30,zcus31 as zcus31,
+               zcus32 as zcus32,zcus33 as zcus33,zcus34 as zcus34,zcus35 as zcus35,
+               CONCAT_WS("|",maktx,zcus01) as showName
+
+        FROM it_mara where 1=1
+
+        <if test="param != null and param != '' ">
+
+            and (maktx like concat('%', #{param}, '%') or
+                 zcus01 like concat('%', #{param}, '%') or
+                 matnr like concat('%', #{param}, '%')
+                )
+        </if>
+
+
+    </select>
+
+
+    <!--获取物料计量单位-->
+    <select id="queryOrderUnitList" resultType="com.yhlo.oa.entity.It_MarmVO" parameterType="java.lang.String">
+        SELECT id as id,
+               matnr as matnr,meinh as meinh,umrez as umrez,umren as umren
+        FROM it_marm where 1=1 and matnr = #{matnr}
+
+    </select>
+
+
+    <!--根据物料号和销售组织获取工厂-->
+    <select id="getFactoryList" resultType="com.yhlo.oa.entity.T001wVO" parameterType="java.lang.String">
+
+        SELECT t0.id as id,
+               t0.WERKS as werks,t0.NAME1 as name1
+            FROM it_mvke mk
+                     inner join t001w t0 on mk.dwerk = t0.WERKS
+        where mk.matnr = #{matnr} and mk.vkorg = #{vkorg}
+    </select>
+
+    <!--获取所有工厂-->
+    <select id="queryAllFactoryList" resultType="com.yhlo.oa.entity.T001wVO">
+        SELECT id as id,
+               WERKS as werks,NAME1 as name1
+        FROM t001w where 1=1
+
+    </select>
+
+    <!--获取仓位-->
+    <select id="queryPositionList" resultType="com.yhlo.oa.entity.T001lVO" parameterType="java.lang.String">
+        SELECT id as id,
+               werks as werks,lgort as lgort,lgobe as lgobe
+        FROM t001l where werks = #{werks}
+
+    </select>
+
+    <!--获取返利政策1-->
+    <select id="queryRebatePolicyList1" resultType="com.yhlo.oa.entity.RebatePolicyVO" parameterType="java.lang.String">
+        SELECT r.id as id,
+            r.rebateFormName as rebateFormName,r.rebateFormNo as rebateFormNo,
+            r.contractNo as contractNo,r.rebateStrategy as rebateStrategy,
+            r.name1 as name1,r.kunnr as kunnr,r.vkorg_name as vkorg_name,r.vkorg as vkorg,
+            r.matkl_name as matkl_name,r.matkl as matkl,r.name_ec_name as name_ec_name ,
+            r.name_ec as name_ec,r.rebateLimit as rebateLimit,r.z005 as z005,
+            r.usedQuota as usedQuota,r.unusedQuota as unusedQuota,
+            r.takeEffectTime as takeEffectTime,r.failureTime as failureTime,r.remark as remark
+        FROM yhlo_rebatepolicy r left join
+            yhlo_rebatepolicy_detail red on r.rebateFormNo = red.rebateFormNo
+        where r.status = '已审核' AND r.unusedQuota >0 AND r.rebateStrategy = '返利政策1'
+            AND r.kunnr = #{kunnr}
+            AND r.vkorg = #{vkorg}
+            AND r.name_ec = #{name_ec}
+            AND red.matkl = #{matkl}
+    </select>
+
+    <!--获取返利政策2-->
+    <select id="queryRebatePolicyList2" resultType="com.yhlo.oa.entity.RebatePolicyVO" parameterType="java.lang.String">
+        SELECT r.id as id,
+               r.rebateFormName as rebateFormName,r.rebateFormNo as rebateFormNo,
+               r.contractNo as contractNo,r.rebateStrategy as rebateStrategy,
+               r.name1 as name1,r.kunnr as kunnr,r.vkorg_name as vkorg_name,r.vkorg as vkorg,
+               r.matkl_name as matkl_name,r.matkl as matkl,r.name_ec_name as name_ec_name ,
+               r.name_ec as name_ec,r.rebateLimit as rebateLimit,r.z005 as z005,
+               r.usedQuota as usedQuota,r.unusedQuota as unusedQuota,
+               r.takeEffectTime as takeEffectTime,r.failureTime as failureTime,r.remark as remark
+        FROM yhlo_rebatepolicy r left join
+             yhlo_rebatepolicy_detail red on r.rebateFormNo = red.rebateFormNo
+        where r.status = '已审核' AND r.unusedQuota >0 AND r.rebateStrategy = '返利政策2'
+          AND r.kunnr = #{kunnr}
+          AND r.vkorg = #{vkorg}
+          AND r.name_ec = #{name_ec}
+    </select>
+
+    <!--获取返利政策3-->
+    <select id="queryRebatePolicyList3" resultType="com.yhlo.oa.entity.RebatePolicyVO" parameterType="java.lang.String">
+        SELECT r.id as id,
+               r.rebateFormName as rebateFormName,r.rebateFormNo as rebateFormNo,
+               r.contractNo as contractNo,r.rebateStrategy as rebateStrategy,
+               r.name1 as name1,r.kunnr as kunnr,r.vkorg_name as vkorg_name,r.vkorg as vkorg,
+               r.matkl_name as matkl_name,r.matkl as matkl,r.name_ec_name as name_ec_name ,
+               r.name_ec as name_ec,r.rebateLimit as rebateLimit,r.z005 as z005,
+               r.usedQuota as usedQuota,r.unusedQuota as unusedQuota,
+               r.takeEffectTime as takeEffectTime,r.failureTime as failureTime,r.remark as remark
+        FROM yhlo_rebatepolicy r left join
+             yhlo_rebatepolicy_detail red on r.rebateFormNo = red.rebateFormNo
+        where r.status = '已审核' AND r.unusedQuota >0 AND r.rebateStrategy = '返利政策3'
+          AND r.kunnr = #{kunnr}
+          AND r.vkorg = #{vkorg}
+          AND red.matkl = #{matkl}
+    </select>
+
+    <!--获取返利政策4-->
+    <select id="queryRebatePolicyList4" resultType="com.yhlo.oa.entity.RebatePolicyVO" parameterType="java.lang.String">
+        SELECT r.id as id,
+               r.rebateFormName as rebateFormName,r.rebateFormNo as rebateFormNo,
+               r.contractNo as contractNo,r.rebateStrategy as rebateStrategy,
+               r.name1 as name1,r.kunnr as kunnr,r.vkorg_name as vkorg_name,r.vkorg as vkorg,
+               r.matkl_name as matkl_name,r.matkl as matkl,r.name_ec_name as name_ec_name ,
+               r.name_ec as name_ec,r.rebateLimit as rebateLimit,r.z005 as z005,
+               r.usedQuota as usedQuota,r.unusedQuota as unusedQuota,
+               r.takeEffectTime as takeEffectTime,r.failureTime as failureTime,r.remark as remark
+        FROM yhlo_rebatepolicy r left join
+             yhlo_rebatepolicy_detail red on r.rebateFormNo = red.rebateFormNo
+        where r.status = '已审核' AND r.unusedQuota >0 AND r.rebateStrategy = '返利政策4'
+          AND r.kunnr = #{kunnr}
+          AND r.vkorg = #{vkorg}
+    </select>
+
+    <!--获取返利政策5-->
+    <select id="queryRebatePolicyList5" resultType="com.yhlo.oa.entity.RebatePolicyVO" parameterType="java.lang.String">
+        SELECT r.id as id,
+               r.rebateFormName as rebateFormName,r.rebateFormNo as rebateFormNo,
+               r.contractNo as contractNo,r.rebateStrategy as rebateStrategy,
+               r.name1 as name1,r.kunnr as kunnr,r.vkorg_name as vkorg_name,r.vkorg as vkorg,
+               r.matkl_name as matkl_name,r.matkl as matkl,r.name_ec_name as name_ec_name ,
+               r.name_ec as name_ec,r.rebateLimit as rebateLimit,r.z005 as z005,
+               r.usedQuota as usedQuota,r.unusedQuota as unusedQuota,
+               r.takeEffectTime as takeEffectTime,r.failureTime as failureTime,r.remark as remark
+        FROM yhlo_rebatepolicy r left join
+             yhlo_rebatepolicy_detail red on r.rebateFormNo = red.rebateFormNo
+        where r.status = '已审核' AND r.unusedQuota >0 AND r.rebateStrategy = '返利政策5'
+          AND r.kunnr = #{kunnr}
+    </select>
+
+
+    <!--根据物料号和销售组织获取税率-->
+    <select id="getTaxList" resultType="com.yhlo.oa.entity.It_MvkeVO" parameterType="java.lang.String">
+
+        SELECT id as id,
+               matnr as matnr,
+               vkorg as vkorg,
+               vtweg as vtweg,
+               vrkme as vrkme,
+               mtpos as mtpos,
+               dwerk as dwerk,
+               ktgrm as ktgrm,
+               lvorm as lvorm,
+               vmsta as vmsta,
+               taxm1 as taxm1
+        FROM it_mvke
+        where matnr = #{matnr} and vkorg = #{vkorg}
+    </select>
+
+
+    <!--通过物料和工厂获取相关细信息-->
+    <select id="getMarcListByParam" resultType="com.yhlo.oa.entity.It_MarcVO" parameterType="java.lang.String">
+        SELECT id as id,
+               matnr as matnr,
+               werks as werks,
+               lvorm as lvorm,
+               xchpf as xchpf,
+               xchar as xchar,
+               ladgr as ladgr,
+               sernp as sernp
+        FROM it_marc where matnr = #{matnr} and werks = #{werks}
+    </select>
+
+
+    <!--根据物料代组代码获取物料组信息-->
+    <select id="getMaterialGroupListByMatkl" resultType="com.yhlo.oa.entity.T023tVO" parameterType="java.lang.String">
+        SELECT id as id,
+               spras as spras,matkl as matkl,wgbez60 as wgbez60
+        FROM T023T where matkl = #{matkl}
+
+    </select>
+
+    <!--根据存储条件代码获取存储条件信息-->
+    <select id="getStorageTemperatureByRaube" resultType="com.yhlo.oa.entity.T142tVO" parameterType="java.lang.String">
+        SELECT id as id,
+               raube as raube,rbtxt as rbtxt
+        FROM t142t where raube = #{raube}
+
+    </select>
+
+    <!--根据客户代码+销售组织+物料编码获取客户物料信息-->
+    <select id="getCustomerMaterial" resultType="com.yhlo.oa.entity.It_Ztsd_012VO" parameterType="java.lang.String">
+        SELECT id as id,
+               kunnr as kunnr,vkorg as vkorg,vtweg as vtweg,matnr as matnr,name1 as name1,
+               arktx as arktx,kdmat as kdmat,postx as postx,zkdmat_2 as zkdmat_2,zkdmat_3 as zkdmat_3,
+               zkdmat_4 as zkdmat_4,zernam1 as zernam1,zerdat1 as zerdat1,zernam2 as zernam2,
+               zerdat2 as zerdat2,create_time as create_time
+        FROM it_ztsd_012 where kunnr = #{kunnr} and vkorg = #{vkorg} and vtweg = '00'
+                           and matnr = #{matnr}
+
+    </select>
+
+    <!--获取客户一般视图-->
+    <select id="queryCustomerGeneralData" resultType="com.yhlo.oa.entity.It_But000VO" parameterType="java.lang.String">
+        SELECT id as id,
+               partner as partner,bu_group as bu_group,name_org1 as name_org1,name_org2 as name_org2,
+               name_org3 as name_org3,name_org4 as name_org4,bu_sort1 as bu_sort1,bu_sort2 as bu_sort2,
+               zynum as zynum,zyfzdat as zyfzdat,zyyxdat as zyyxdat,zelnum as zelnum,
+               zelfzdat as zelfzdat,zjynum as zjynum,zjyfzdat as zjyfzdat,zjyyxdat as zjyyxdat,
+               zyyfzdat as zyyfzdat,zscbapz as zscbapz,zscbarq as zscbarq,zfr as zfr,crusr as crusr,
+               crdat as crdat,crtim as crtim,chusr as chusr,chdat as chdat,chtim as chtim,
+               create_time as create_time
+        FROM it_but000 where partner = #{partner}
+                           /*  and (bu_group = 'Z001' or bu_group = 'Z003' or bu_group = 'Z005')*/
+    </select>
+
+
+    <select id="queryMultiAngleTrade" resultType="com.yhlo.oa.entity.It_Ztsd_002VO" parameterType="java.lang.String">
+        SELECT id as id,
+               kunnr as kunnr,vkorg as vkorg,knumh as knumh,name1 as name1,
+               c_default as c_default,name2 as name2,datab as datab,datbi as datbi,
+               loevm_ko as loevm_ko,zernam1 as zernam1,zerdat1 as zerdat1,zernam2 as zernam2,
+               zerdat2 as zerdat2,create_time as create_time,
+               CONCAT_WS("|",knumh,name2) as showName
+        FROM it_ztsd_002 where kunnr = #{kunnr} and vkorg = #{vkorg}
+
+    </select>
+
+
+    <select id="getMaterialListByMaterialNo" resultType="com.yhlo.oa.entity.It_MaraVO" parameterType="java.lang.String">
+        SELECT id as id,
+        matnr as matnr,maktx as maktx,mtart as mtart,matkl as matkl,raube as raube,
+        bismt as bismt,spart as spart,prdha as prdha,meins as meins,mstae as mstae,
+        xchpf as xchpf,extwg as extwg,mbrsh as mbrsh,mhdrz as mhdrz,mhdhb as mhdhb,
+        mtpos_mara as mtpos_mara,zggxh as zggxh,zcus01 as zcus01,zcus02 as zcus02,zcus02_1 as zcus02_1,
+        zcus02_2 as zcus02_2,zcus03 as zcus03,zcus04 as zcus04,zcus05 as zcus05,zcus06 as zcus06,
+        zcus07 as zcus07,zcus08 as zcus08,zcus09 as zcus09,zcus10 as zcus10,zcus11 as zcus11,
+        zcus12 as zcus12,zcus13 as zcus13,zcus14 as zcus14,zcus15 as zcus15,zcus16 as zcus16,
+        zcus17 as zcus17,zcus18 as zcus18,zcus19 as zcus19,zcus20 as zcus20,zcus21 as zcus21,
+        zcus22 as zcus22,zcus23 as zcus23,zcus24 as zcus24,zcus25 as zcus25,zcus26 as zcus26,
+        zcus27 as zcus27,zcus28 as zcus28,zcus29 as zcus29,zcus30 as zcus30,zcus31 as zcus31,
+        zcus32 as zcus32,zcus33 as zcus33,zcus34 as zcus34,zcus35 as zcus35,
+        CONCAT_WS("|",maktx,zcus01) as showName
+
+        FROM it_mara where 1=1
+
+        <if test="matnr != null and matnr != '' ">
+            and matnr = #{matnr}
+        </if>
+
+
+    </select>
+
+
+</mapper>
